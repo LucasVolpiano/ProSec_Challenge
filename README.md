@@ -9,6 +9,7 @@ Criadores:
 
 -Larissa de Almeida Sevirino RM:94840
 
+
 Projeto TRAPWARE - ANTI-RANSOMWARE
 
 Projeto feito para a Pride Security, feito totalmente em Python.
