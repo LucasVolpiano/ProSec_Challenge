@@ -1,4 +1,4 @@
-import os, hashlib, psutil, time
+import os, hashlib, psutil
 from tkinter import messagebox, Tk
 from os import listdir
 from os.path import isfile, join
@@ -8,15 +8,12 @@ user = os.getlogin()
 cd = [f'C:\\Users\\{user}', f'C:\\Users\\{user}\\Downloads', f'C:\\Users\\{user}\\Documents']
 dirx = [f'C:\\Users\\{user}\\!', f'C:\\Users\\{user}\\Downloads\\!', f'C:\\Users\\{user}\\Documents\\!']
 
-from tkinter import messagebox, Tk
-
-
-def alert(title, message, kind='info', hidemain=True):
-    if kind not in ('error', 'warning', 'info'):
+def alert(tit, mess, tipo='info', hide=True):
+    if tipo not in ('error', 'warning', 'info'):
         raise ValueError('Unsupported alert kind.')
 
-    show_method = getattr(messagebox, 'show{}'.format(kind))
-    show_method(title, message)
+    show = getattr(messagebox, 'show{}'.format(tipo))
+    show(tit, mess)
 
 def mkdir():
     for dir in cd:
@@ -61,6 +58,7 @@ def pid():
 
 def find():
     for xxx in process:
+        '''
         os.system(f'TASKLIST /V /fi "STATUS eq running" /FO list /FI "IMAGENAME eq {xxx}"  > xxx.txt')
         with open('xxx.txt') as o:
             lastp = o.readlines()[9]
@@ -71,11 +69,12 @@ def find():
             print(z)
             o.close
         os.remove('xxx.txt')
+        '''
         os.system(f"taskkill /F /im {xxx}")
         for (dirpath, dirnames, filenames) in os.walk(f"C:\\Users\\{user}\\Downloads"):
             for filename in filenames:
                 print(filename)
-                if filename == z or filename == xxx:
+                if filename == xxx:
                     kill = (dirpath +'\\'+ filename)
                     os.remove(kill)
                     break
