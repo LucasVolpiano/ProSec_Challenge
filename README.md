@@ -12,3 +12,7 @@ Criadores:
 Projeto TRAPWARE - ANTI-RANSOMWARE
 
 Projeto feito para a Pride Security, feito totalmente em Python.
+
+Obrigado pela oportunidade de mostrar um projeto feito desde o começo pela ProSec.
+
+Agradeço a atenção e o conhecimento até aqui.
