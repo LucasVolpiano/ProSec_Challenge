@@ -1,19 +1,20 @@
-import os, hashlib, psutil
+import os, hashlib, psutil, 
 from tkinter import messagebox, Tk
 from os import listdir
 from os.path import isfile, join
 
 hash = ()
 user = os.getlogin()
-cd = [f'C:\\Users\\{user}', f'C:\\Users\\{user}\\Downloads', f'C:\\Users\\{user}\\Documents']
-dirx = [f'C:\\Users\\{user}\\!', f'C:\\Users\\{user}\\Downloads\\!', f'C:\\Users\\{user}\\Documents\\!']
+cd = [f'C:\\Users\\{user}', f'C:\\Users\\{user}\\Downloads', f'C:\\Users\\{user}\\Documents', f'C:\\Users\\{user}\\Desktop']
+dirx = [f'C:\\Users\\{user}\\!', f'C:\\Users\\{user}\\Downloads\\!', f'C:\\Users\\{user}\\Documents\\!', f'C:\\Users\\{user}\\Desktop\\!']
 
-def alert(tit, mess, tipo='info', hide=True):
-    if tipo not in ('error', 'warning', 'info'):
+
+def alert(title, message, kind='info', hidemain=True):
+    if kind not in ('error', 'warning', 'info'):
         raise ValueError('Unsupported alert kind.')
 
-    show = getattr(messagebox, 'show{}'.format(tipo))
-    show(tit, mess)
+    show_method = getattr(messagebox, 'show{}'.format(kind))
+    show_method(title, message)
 
 def mkdir():
     for dir in cd:
@@ -47,7 +48,7 @@ for i in dirx:
 def pid():
     global process
     process = []
-    a = ("","msdtc.exe","MsMpEng.exe","VGAuthService.exe","vm3dservice.exe","vmtoolsd.exe","YourPhone.exe","WMIADAP.exe","NisSrv.exe","OneDrive.exe","uhssvc.exe","Trapware copy.exe","msedge.exe","TiWorker.exe","wireguard.exe","browserhost.exe","McAMTaskAgent.exe","BackgroundTransferHost.exe","CompPkgSrv.exe","sppsvc.exe","dllhost.exe","ShellExperienceHost.exe","uihost.exe","vmmem","SystemSettings.exe","Microsoft.Photos.exe","ApplicationFrameHost.exe","UserOOBEBroker.exe","Video.UI.exe","LockApp.exe","PhoneExperienceHost.exe","AdobeCollabSync.exe","AppMonitorPlugIn.exe","wslhost.exe","vmwp.exe","taskhostw.exe","SystemSettingsBroker.exe","System Idle Process","MfeBrowserHost.exe","MemCompression","System","TextInputHost.exe","QcShm.exe","RuntimeBroker.exe","CodeSetup-stable-e4503b30fc78200f846c62cf8091b76ff5547662.tmp","audiodg.exe","smartscreen.exe","steamwebhelper.exe","Trapware.exe","conhost.exe","svchost.exe","powershell.exe","python.exe","Code.exe","Trapware.py","sihost.exe","MoUsoCoreWorker.exe","explorer.exe","lsass.exe","smss.exe","csrss.exe","fontdrvhost.exe","services.exe","LsaIso.exe","WUDFHost.exe","WmiPrvSE.exe","fontdrvhost.exe","vmware-usbarbitrator64.exe","MMSSHOST.exe","mfevtps.exe","SgrmBroker.exe","ProtectedModuleHost.exe","McCSPServiceHost.exe","GoogleCrashHandler64.exe","QASvc.exe","MfeAVSvc.exe","SecurityHealthService.exe","CamUsage.exe","MicUsage.exe","SearchApp.exe","vmcompute.exe","SearchIndexer.exe","ONENOTEM.EXE","SearchProtocolHost.exe","winlogon.exe","OfficeClickToRun.exe","ModuleCoreService.exe","vmware-tray.exe","SCTBSvc.exe","steam.exe","igfxextN.exe","QAAdminAgent.exe","dwm.exe","McUICnt.exe","unsecapp.exe","ctfmon.exe","StorPSCTL.exe","TrustedInstaller.exe","StartMenuExperienceHost.exe","SearchFilterHost.exe","ACCStd.exe","mcapexe.exe","servicehost.exe","mcshield.exe","AcerRegistrationBackGroundTask.exe","UBTService.exe","vmware-authd.exe","InstallAssistService.exe","GoogleCrashHandler.exe","jhi_service.exe","chrome.exe","vmnat.exe","vmnetdhcp.exe","RtkAudUService64.exe","RstMwService.exe","PEFService.exe","mfemms.exe","LMS.exe","IntelAudioService.exe","armsvc.exe","ACCSvc.exe","OneApp.IGCC.WinService.exe","HPPrintScanDoctorService.exe","wlanext.exe","spoolsv.exe","Bridge_Service.exe","GTFidoService.exe","PresentationFontCache.exe","igfxCUIServiceN.exe","IntelCpHDCPSvc.exe","wininit.exe","Registry")
+    a = ("","VSSVC.exe","WinStore.App.exe","SecurityHealthSystray.exe","python3.10.exe","msdtc.exe","MsMpEng.exe","VGAuthService.exe","vm3dservice.exe","vmtoolsd.exe","YourPhone.exe","WMIADAP.exe","NisSrv.exe","OneDrive.exe","uhssvc.exe","Trapware copy.exe","msedge.exe","TiWorker.exe","wireguard.exe","browserhost.exe","McAMTaskAgent.exe","BackgroundTransferHost.exe","CompPkgSrv.exe","sppsvc.exe","dllhost.exe","ShellExperienceHost.exe","uihost.exe","vmmem","SystemSettings.exe","Microsoft.Photos.exe","ApplicationFrameHost.exe","UserOOBEBroker.exe","Video.UI.exe","LockApp.exe","PhoneExperienceHost.exe","AdobeCollabSync.exe","AppMonitorPlugIn.exe","wslhost.exe","vmwp.exe","taskhostw.exe","SystemSettingsBroker.exe","System Idle Process","MfeBrowserHost.exe","MemCompression","System","TextInputHost.exe","QcShm.exe","RuntimeBroker.exe","CodeSetup-stable-e4503b30fc78200f846c62cf8091b76ff5547662.tmp","audiodg.exe","smartscreen.exe","steamwebhelper.exe","Trapware.exe","conhost.exe","svchost.exe","powershell.exe","python.exe","Code.exe","Trapware.py","sihost.exe","MoUsoCoreWorker.exe","explorer.exe","lsass.exe","smss.exe","csrss.exe","fontdrvhost.exe","services.exe","LsaIso.exe","WUDFHost.exe","WmiPrvSE.exe","fontdrvhost.exe","vmware-usbarbitrator64.exe","MMSSHOST.exe","mfevtps.exe","SgrmBroker.exe","ProtectedModuleHost.exe","McCSPServiceHost.exe","GoogleCrashHandler64.exe","QASvc.exe","MfeAVSvc.exe","SecurityHealthService.exe","CamUsage.exe","MicUsage.exe","SearchApp.exe","vmcompute.exe","SearchIndexer.exe","ONENOTEM.EXE","SearchProtocolHost.exe","winlogon.exe","OfficeClickToRun.exe","ModuleCoreService.exe","vmware-tray.exe","SCTBSvc.exe","steam.exe","igfxextN.exe","QAAdminAgent.exe","dwm.exe","McUICnt.exe","unsecapp.exe","ctfmon.exe","StorPSCTL.exe","TrustedInstaller.exe","StartMenuExperienceHost.exe","SearchFilterHost.exe","ACCStd.exe","mcapexe.exe","servicehost.exe","mcshield.exe","AcerRegistrationBackGroundTask.exe","UBTService.exe","vmware-authd.exe","InstallAssistService.exe","GoogleCrashHandler.exe","jhi_service.exe","chrome.exe","vmnat.exe","vmnetdhcp.exe","RtkAudUService64.exe","RstMwService.exe","PEFService.exe","mfemms.exe","LMS.exe","IntelAudioService.exe","armsvc.exe","ACCSvc.exe","OneApp.IGCC.WinService.exe","HPPrintScanDoctorService.exe","wlanext.exe","spoolsv.exe","Bridge_Service.exe","GTFidoService.exe","PresentationFontCache.exe","igfxCUIServiceN.exe","IntelCpHDCPSvc.exe","wininit.exe","Registry")
     p = psutil.process_iter()
     for proc in p:
         i = proc.name()
@@ -74,10 +75,13 @@ def find():
         for (dirpath, dirnames, filenames) in os.walk(f"C:\\Users\\{user}\\Downloads"):
             for filename in filenames:
                 print(filename)
-                if filename == xxx:
+                if filename == xxx or filename.endswith(".wnry") or filename == "taskdl.exe" or filename == "taskse.exe":
                     kill = (dirpath +'\\'+ filename)
                     os.remove(kill)
-                    break
+        Tk().withdraw()
+        alert('Trapware', 'Usuario ocorreu um tentativa de ataque de Ransoware na sua máquina!!!\nA ameaça foi neutralizada pelo Trapware, aconselhamos a tomar mais cuidado!!!')
+                    
+                
 
 mkdir()
 mkfile()
@@ -92,10 +96,6 @@ while 1 == 1:
                     pid()
                     find()
                     mkfile()
-                    Tk().withdraw()
-                    alert('Trapware', 'Usuario ocorreu um tentativa de ataque de Ransoware na sua máquina!!!\nA ameaça foi neutralizada pelo Trapware, aconselhamos a tomar mais cuidado!!!')
                     
     except:
         pass 
-
-
