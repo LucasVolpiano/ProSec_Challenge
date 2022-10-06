@@ -3,24 +3,27 @@ from tkinter import messagebox, Tk
 from os import listdir
 from os.path import isfile, join
 
+# Variaveis iniciais
 hash = ()
-user = os.getlogin()
-cd = [f'C:\\Users\\{user}', f'C:\\Users\\{user}\\Downloads', f'C:\\Users\\{user}\\Documents', f'C:\\Users\\{user}\\Desktop']
-dirx = [f'C:\\Users\\{user}\\!', f'C:\\Users\\{user}\\Downloads\\!', f'C:\\Users\\{user}\\Documents\\!', f'C:\\Users\\{user}\\Desktop\\!']
+user = os.getlogin() #nome do usuario
+cd = [f'C:\\Users\\{user}', f'C:\\Users\\{user}\\Downloads', f'C:\\Users\\{user}\\Documents', f'C:\\Users\\{user}\\Desktop'] #diretorios escolhidos para serem monitorados
+dirx = [f'C:\\Users\\{user}\\!', f'C:\\Users\\{user}\\Downloads\\!', f'C:\\Users\\{user}\\Documents\\!', f'C:\\Users\\{user}\\Desktop\\!'] #Caminho dos arquivos dos honeypots
 
-
+#Função para criar o alerta
 def alert(title, message, kind='info', hidemain=True):
     if kind not in ('error', 'warning', 'info'):
         raise ValueError('Unsupported alert kind.')
 
     show_method = getattr(messagebox, 'show{}'.format(kind))
     show_method(title, message)
-
+    
+#Função para as pastas dos honeypots
 def mkdir():
     for dir in cd:
         os.chdir(dir)
         os.system("mkdir !")
 
+#Função para criar os honeypots
 def mkfile():
     for dir in dirx:
         try:
@@ -36,6 +39,7 @@ def mkfile():
         except:
             pass
 
+#Mapeia os arquivos em cada diretório
 alvos = ('.txt', '.docx', '.pdf', '.doc', '.rtf')
 caminhos = []
 for i in dirx:
@@ -45,6 +49,7 @@ for i in dirx:
             if extenção in alvos:
                 caminhos.append(root + '\\' + arquivo)
 
+#Função para filtrar os processos para diminuição de falsos positivos
 def pid():
     global process
     process = []
@@ -56,10 +61,11 @@ def pid():
             process.append(i)
             print(i)
             
-
+#Função principal para matar os processos que modificar os honeypots e colocar o alerta na tela
 def find():
     for xxx in process:
         '''
+        Projeto para pegar ransoware maldoc
         os.system(f'TASKLIST /V /fi "STATUS eq running" /FO list /FI "IMAGENAME eq {xxx}"  > xxx.txt')
         with open('xxx.txt') as o:
             lastp = o.readlines()[9]
@@ -82,7 +88,7 @@ def find():
         alert('Trapware', 'Usuario ocorreu um tentativa de ataque de Ransoware na sua máquina!!!\nA ameaça foi neutralizada pelo Trapware, aconselhamos a tomar mais cuidado!!!')
                     
                 
-
+#Programa começa aqui :), compara os hashes dos arquivos, caso esteja diferente mata o processo e se repete
 mkdir()
 mkfile()
 while 1 == 1:
